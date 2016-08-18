@@ -1,0 +1,329 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A071105E-7667-4586-B6FD-76A406916D23}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HighWayCharging</RootNamespace>
+    <AssemblyName>高速公路车道收费软件</AssemblyName>
+    <ApplicationIcon>Main.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="MainForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="业务配置模块\DataBaseSettingUI.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DataBaseSettingUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="业务配置模块\EntranceExitConfigurationModifyUI.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>EntranceExitConfigurationModifyUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="业务配置模块\EntranceExitConfigurationUI.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>EntranceExitConfigurationUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="业务配置模块\LaneSimulationConfigurationUI.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>LaneSimulationConfigurationUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="业务配置模块\TollRateConfigurationUI.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>TollRateConfigurationUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="业务配置模块\TollstationLaneConfigurationUI.resx">
+      <DependentUpon>TollstationLaneConfigurationUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="对账模块\CheckingAccountUI.resx">
+      <DependentUpon>CheckingAccountUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="对账模块\UnCheckingAccountUI.resx">
+      <DependentUpon>UnCheckingAccountUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="操作员管理\LoginUI.resx">
+      <DependentUpon>LoginUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="操作员管理\UserManageAddUI.resx">
+      <DependentUpon>UserManageAddUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="操作员管理\UserManageReviseUI.resx">
+      <DependentUpon>UserManageReviseUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="关于\FormAboutUI.resx">
+      <DependentUpon>FormAboutUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="操作员管理\ModifyPasswordUI.resx">
+      <DependentUpon>ModifyPasswordUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="操作员管理\SystemUserManagerUI.resx">
+      <DependentUpon>SystemUserManagerUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="查询模块\SystemLogUI.resx">
+      <DependentUpon>SystemLogUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="查询模块\CardRecordUI.resx">
+      <DependentUpon>CardRecordUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="查询模块\ChargeRecordUI.resx">
+      <DependentUpon>ChargeRecordUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="设备维护\EquipmentAbnormalUI.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>EquipmentAbnormalUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="设备维护\EquipmentMaintenanceUI.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>EquipmentMaintenanceUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="App.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="业务配置模块\DataBaseSettingUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="业务配置模块\DataBaseSettingUI.Designer.cs">
+      <DependentUpon>DataBaseSettingUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="业务配置模块\EntranceExitConfigurationModifyUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="业务配置模块\EntranceExitConfigurationModifyUI.Designer.cs">
+      <DependentUpon>EntranceExitConfigurationModifyUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="业务配置模块\EntranceExitConfigurationUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="业务配置模块\EntranceExitConfigurationUI.Designer.cs">
+      <DependentUpon>EntranceExitConfigurationUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="业务配置模块\LaneSimulationConfigurationUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="业务配置模块\LaneSimulationConfigurationUI.Designer.cs">
+      <DependentUpon>LaneSimulationConfigurationUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="业务配置模块\TollRateConfigurationUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="业务配置模块\TollRateConfigurationUI.Designer.cs">
+      <DependentUpon>TollRateConfigurationUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="业务配置模块\TollstationLaneConfigurationUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="业务配置模块\TollstationLaneConfigurationUI.Designer.cs">
+      <DependentUpon>TollstationLaneConfigurationUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="对账模块\CheckingAccountUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="对账模块\CheckingAccountUI.designer.cs">
+      <DependentUpon>CheckingAccountUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="对账模块\UnCheckingAccountUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="对账模块\UnCheckingAccountUI.designer.cs">
+      <DependentUpon>UnCheckingAccountUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="操作员管理\LoginUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="操作员管理\LoginUI.designer.cs">
+      <DependentUpon>LoginUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="操作员管理\UserManageAddUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="操作员管理\UserManageAddUI.designer.cs">
+      <DependentUpon>UserManageAddUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="操作员管理\UserManageReviseUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="操作员管理\UserManageReviseUI.designer.cs">
+      <DependentUpon>UserManageReviseUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="关于\FormAboutUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="关于\FormAboutUI.designer.cs">
+      <DependentUpon>FormAboutUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="操作员管理\ModifyPasswordUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="操作员管理\ModifyPasswordUI.designer.cs">
+      <DependentUpon>ModifyPasswordUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="操作员管理\SystemUserManagerUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="操作员管理\SystemUserManagerUI.designer.cs">
+      <DependentUpon>SystemUserManagerUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="查询模块\SystemLogUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="查询模块\SystemLogUI.designer.cs">
+      <DependentUpon>SystemLogUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="查询模块\CardRecordUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="查询模块\CardRecordUI.designer.cs">
+      <DependentUpon>CardRecordUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="查询模块\ChargeRecordUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="查询模块\ChargeRecordUI.designer.cs">
+      <DependentUpon>ChargeRecordUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="设备维护\EquipmentAbnormalUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="设备维护\EquipmentAbnormalUI.Designer.cs">
+      <DependentUpon>EquipmentAbnormalUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="设备维护\EquipmentMaintenanceUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="设备维护\EquipmentMaintenanceUI.Designer.cs">
+      <DependentUpon>EquipmentMaintenanceUI.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{17A4B20E-B9A7-4D6C-BBD6-A1945CD4BB0E}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{C05607F1-9487-4D8D-9836-C14631B7CA33}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utility\Utility.csproj">
+      <Project>{41618B30-D0F6-4FF3-8821-64E8999A3CC8}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resource\background.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resource\bt_picture.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resource\exit.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resource\open.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resource\tollstation.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Main.ico" />
+    <None Include="resource\TollstationUI.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PreBuildEvent>copy "$(SolutionDir)\DAL\Lib\Mysql\*.dll" "$(ProjectDir)\$(OutDir)"</PreBuildEvent>
+    <PostBuildEvent>copy  "$(TargetDir)*.dll"  "$(SolutionDir)\Setup\pkgfiles\"
+copy  "$(TargetDir)*.config"  "$(SolutionDir)\Setup\pkgfiles\"
+copy  "$(ProjectDir)\$(OutDir)\$(TargetFileName)"  "$(SolutionDir)\Setup\pkgfiles\"
+copy  "$(ProjectDir)*.ico"  "$(SolutionDir)\Setup\pkgfiles\"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

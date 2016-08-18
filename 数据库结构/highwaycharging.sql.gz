@@ -1,0 +1,376 @@
+-- phpMyAdmin SQL Dump
+-- version 4.1.7
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: 2015-11-22 15:53:11
+-- 服务器版本： 5.00.15
+-- PHP Version: 5.3.2
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `highwaycharging`
+--
+CREATE DATABASE IF NOT EXISTS `highwaycharging` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `highwaycharging`;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `cardrecord`
+--
+
+DROP TABLE IF EXISTS `cardrecord`;
+CREATE TABLE IF NOT EXISTS `cardrecord` (
+  `ID` int(11) NOT NULL auto_increment COMMENT '序号',
+  `CarNum` char(32) default NULL COMMENT '车牌',
+  `ArrivalTime` datetime default NULL COMMENT '到达时间',
+  `TollStationName` varchar(32) default NULL COMMENT '收费站名称',
+  `LaneID` varchar(32) default NULL COMMENT '车道',
+  `SendCardTime` datetime default NULL COMMENT '发卡时间',
+  `ICCard` char(32) default NULL COMMENT 'IC卡号',
+  `CarType` char(32) default NULL COMMENT '车型',
+  PRIMARY KEY  (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `centralcharge`
+--
+
+DROP TABLE IF EXISTS `centralcharge`;
+CREATE TABLE IF NOT EXISTS `centralcharge` (
+  `ID` int(11) NOT NULL auto_increment COMMENT '序号',
+  `SettlementDate` datetime NOT NULL COMMENT '结算日期',
+  `ReconciliationTime` datetime NOT NULL COMMENT '对账时间',
+  `ReconciliationAmount` int(11) NOT NULL COMMENT '对账金额',
+  `IsAudit` int(11) NOT NULL COMMENT '是否审核',
+  `AuditTime` datetime NOT NULL COMMENT '审核时间',
+  `AuditStaff` varchar(32) NOT NULL COMMENT '审核人员',
+  PRIMARY KEY  (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `chargerecord`
+--
+
+DROP TABLE IF EXISTS `chargerecord`;
+CREATE TABLE IF NOT EXISTS `chargerecord` (
+  `ID` int(11) NOT NULL auto_increment COMMENT '序号',
+  `CardRecordID` int(11) default NULL COMMENT '对应发卡记录编号',
+  `CarNum` char(32) default NULL COMMENT '车牌',
+  `EntranceStationTime` datetime default NULL COMMENT '入站到达时间',
+  `EntranceTollStation` varchar(32) default NULL COMMENT '入口收费站',
+  `EntranceLane` varchar(32) default NULL COMMENT '入口车道',
+  `CardTime` datetime default NULL COMMENT '发卡时间',
+  `ICCardID` char(32) default NULL COMMENT 'IC卡号',
+  `EntranceCarType` char(32) default NULL COMMENT '入口车型',
+  `ExitCarType` char(32) default NULL COMMENT '出口车型',
+  `ExitStationTime` datetime default NULL COMMENT '出站到达时间',
+  `ExitTollStation` varchar(32) default NULL COMMENT '出口收费站',
+  `ExitLane` varchar(32) default NULL COMMENT '出口车道',
+  `Cost` int(11) default NULL COMMENT '费用',
+  `ChargeState` char(32) default NULL COMMENT '收费状态（正常/免费/逃费）',
+  `Operator` varchar(32) default NULL COMMENT '操作员',
+  `IsCheck` char(10) default NULL COMMENT '是否对账',
+  `CheckID` varchar(32) default NULL COMMENT '对账编号',
+  PRIMARY KEY  (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `chargestate`
+--
+
+DROP TABLE IF EXISTS `chargestate`;
+CREATE TABLE IF NOT EXISTS `chargestate` (
+  `ID` int(11) NOT NULL auto_increment COMMENT '序号',
+  `AbnormalTime` date default NULL COMMENT '发生时间',
+  `TollStationID` char(32) default NULL COMMENT '收费站编号',
+  `Lane` int(11) default NULL COMMENT '车道',
+  `AbnormalState` int(11) default NULL COMMENT '异常状态',
+  `IsConfirm` int(11) default NULL COMMENT '是否确认',
+  `IsManage` int(11) default NULL COMMENT '是否处理',
+  `ProcessingContent` int(11) NOT NULL COMMENT '处理内容',
+  PRIMARY KEY  (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `checkinfo`
+--
+
+DROP TABLE IF EXISTS `checkinfo`;
+CREATE TABLE IF NOT EXISTS `checkinfo` (
+  `ID` int(11) NOT NULL auto_increment COMMENT '序号',
+  `Cashier` varchar(32) default NULL COMMENT '收费员',
+  `CheckTime` datetime default NULL COMMENT '对账时间',
+  `CheckAmount` int(11) default NULL COMMENT '对账金额',
+  `ChargeNum` int(11) default NULL COMMENT '收费记录数',
+  `IsPay` char(10) default NULL COMMENT '是否交款',
+  `PayTime` datetime default NULL COMMENT '交款时间',
+  `IsReconciliation` char(10) default NULL COMMENT '收费站是否对账',
+  `ReconciliationID` varchar(32) NOT NULL COMMENT '收费对账编号',
+  PRIMARY KEY  (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- 转存表中的数据 `checkinfo`
+--
+
+INSERT INTO `checkinfo` (`ID`, `Cashier`, `CheckTime`, `CheckAmount`, `ChargeNum`, `IsPay`, `PayTime`, `IsReconciliation`, `ReconciliationID`) VALUES
+(4, 'root', '2015-11-20 16:45:02', 55, 3, 'False', NULL, NULL, ''),
+(2, 'root', '2015-11-20 16:25:35', 270, 13, 'False', NULL, NULL, ''),
+(3, 'root', '2015-11-20 16:28:39', 40, 2, 'False', NULL, NULL, ''),
+(5, 'root', '2015-11-21 14:21:38', 630, 34, 'False', NULL, NULL, '');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `equipmentstate`
+--
+
+DROP TABLE IF EXISTS `equipmentstate`;
+CREATE TABLE IF NOT EXISTS `equipmentstate` (
+  `ID` int(11) NOT NULL auto_increment COMMENT '序号',
+  `AbnormalTime` datetime default NULL COMMENT '发生时间',
+  `TollStationName` char(32) default NULL COMMENT '收费站',
+  `LaneID` char(32) default NULL COMMENT '车道编号',
+  `AbnormalState` char(10) default NULL COMMENT '异常状态',
+  `reportor` char(32) default NULL COMMENT '处理人员',
+  `reporting` char(2) default NULL COMMENT '是否上报',
+  `ReportTime` datetime default NULL COMMENT '上传时间',
+  `restoring` char(2) default NULL COMMENT '是否恢复',
+  `RestoreTime` datetime default NULL COMMENT '恢复时间',
+  PRIMARY KEY  (`ID`),
+  UNIQUE KEY `AbnormalTime` (`AbnormalTime`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `lane`
+--
+
+DROP TABLE IF EXISTS `lane`;
+CREATE TABLE IF NOT EXISTS `lane` (
+  `ID` int(11) NOT NULL auto_increment COMMENT '序号',
+  `TollstationID` varchar(32) default NULL COMMENT '所属收费站编号',
+  `TollstationName` varchar(32) default NULL COMMENT '收费站名称',
+  `LaneID` varchar(32) default NULL COMMENT '车道编号',
+  `InOutward` varchar(32) default NULL COMMENT '出/入口',
+  `AutoSemiauto` varchar(32) default NULL COMMENT '自动/半自动',
+  `OpenState` varchar(32) default NULL COMMENT '开通/关闭',
+  `EquipmentState` varchar(32) default NULL COMMENT '设备状态',
+  PRIMARY KEY  (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+
+--
+-- 转存表中的数据 `lane`
+--
+
+INSERT INTO `lane` (`ID`, `TollstationID`, `TollstationName`, `LaneID`, `InOutward`, `AutoSemiauto`, `OpenState`, `EquipmentState`) VALUES
+(1, '00010001', '鱼窝头', '0001000101', '出口', '自动', '关闭', '正常'),
+(2, '00010001', '鱼窝头', '0001000111', '入口', '手动', '关闭', '正常'),
+(3, '00010001', '鱼窝头', '0001000112', '入口', '手动', '关闭', '正常'),
+(4, '00010001', '鱼窝头', '0001000102', '出口', '手动', '关闭', '正常'),
+(5, '00010002', '亚运城', '0001000211', '入口', '手动', '关闭', '正常'),
+(6, '00010002', '亚运城', '0001000212', '入口', '手动', '关闭', '正常'),
+(7, '00010002', '亚运城', '0001000201', '出口', '手动', '关闭', '正常'),
+(8, '00010002', '亚运城', '0001000202', '出口', '手动', '关闭', '正常'),
+(9, '00010003', '仑头', '0001000311', '入口', '手动', '关闭', '正常'),
+(10, '00010003', '仑头', '0001000312', '入口', '手动', '关闭', '正常'),
+(11, '00010003', '仑头', '0001000301', '出口', '手动', '关闭', '正常'),
+(12, '00010003', '仑头', '0001000302', '出口', '手动', '关闭', '正常'),
+(13, '00010003', '仑头', '0001000303', '出口', '手动', '关闭', '正常');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `system`
+--
+
+DROP TABLE IF EXISTS `system`;
+CREATE TABLE IF NOT EXISTS `system` (
+  `ID` int(11) NOT NULL auto_increment COMMENT '序号',
+  `UserName` char(32) default NULL COMMENT '用户名',
+  `PassWord` char(32) default NULL COMMENT '密码',
+  `UserType` char(32) default NULL COMMENT '用户类型',
+  `privilege` char(32) default NULL COMMENT '权限',
+  `name` char(32) default NULL COMMENT '姓名',
+  `gender` char(4) default NULL COMMENT '性别',
+  `IDCard` char(25) default NULL COMMENT '身份证',
+  `state` char(25) default NULL COMMENT '用户状态',
+  PRIMARY KEY  (`ID`),
+  UNIQUE KEY `UserName` (`UserName`,`PassWord`),
+  UNIQUE KEY `UserName_2` (`UserName`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+
+--
+-- 转存表中的数据 `system`
+--
+
+INSERT INTO `system` (`ID`, `UserName`, `PassWord`, `UserType`, `privilege`, `name`, `gender`, `IDCard`, `state`) VALUES
+(1, 'root', 'admin', '系统管理员', NULL, NULL, NULL, NULL, NULL),
+(8, 'user', '12345', '中心管理员', '中心主任', '', '男', '44************1234', '无'),
+(10, 'user1', 'user1', '中心管理员', '中心主任', '张三', '男', '44************1234', '无');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `systemlog`
+--
+
+DROP TABLE IF EXISTS `systemlog`;
+CREATE TABLE IF NOT EXISTS `systemlog` (
+  `ID` int(11) NOT NULL auto_increment COMMENT '序号',
+  `LoginTime` datetime default NULL COMMENT '发生时间',
+  `LoginUser` char(32) default NULL COMMENT '登陆用户',
+  `Action` char(32) default NULL COMMENT '动作',
+  PRIMARY KEY  (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `tollrate`
+--
+
+DROP TABLE IF EXISTS `tollrate`;
+CREATE TABLE IF NOT EXISTS `tollrate` (
+  `ID` int(11) NOT NULL auto_increment COMMENT '序号',
+  `StartStation1ID` varchar(32) default NULL COMMENT '起始站点编号',
+  `StartStation1Name` varchar(32) default NULL COMMENT '起始站点名称',
+  `StartStation2ID` varchar(32) default NULL COMMENT '结束站点编号',
+  `StartStation2Name` varchar(32) default NULL COMMENT '结束站点名称',
+  `CarType` varchar(32) default NULL COMMENT '车型',
+  `Kilometers` int(11) default NULL COMMENT '公里数',
+  `Rate` int(11) default NULL COMMENT '费用（元）',
+  PRIMARY KEY  (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
+
+--
+-- 转存表中的数据 `tollrate`
+--
+
+INSERT INTO `tollrate` (`ID`, `StartStation1ID`, `StartStation1Name`, `StartStation2ID`, `StartStation2Name`, `CarType`, `Kilometers`, `Rate`) VALUES
+(1, '00010001', '鱼窝头', '00010002', '亚运城', '小客货Ⅰ型', 5, 5),
+(8, '00010001', '鱼窝头', '00010002', '亚运城', '中客货Ⅲ型', 5, 15),
+(9, '00010001', '鱼窝头', '00010002', '亚运城', '大客货Ⅳ型', 5, 20),
+(7, '00010001', '鱼窝头', '00010002', '亚运城', '小客货Ⅱ型', 5, 10),
+(10, '00010001', '鱼窝头', '00010002', '亚运城', '特客货Ⅴ型', 5, 25),
+(11, '00010001', '鱼窝头', '00010002', '亚运城', '特货Ⅵ型', 5, 30),
+(12, '00010001', '鱼窝头', '00010002', '亚运城', '超货Ⅶ型', 5, 35),
+(13, '00010002', '亚运城', '00010001', '鱼窝头', '小客货Ⅰ型', 5, 5),
+(14, '00010002', '亚运城', '00010001', '鱼窝头', '小客货Ⅱ型', 5, 10),
+(15, '00010002', '亚运城', '00010001', '鱼窝头', '中客货Ⅲ型', 5, 15),
+(16, '00010002', '亚运城', '00010001', '鱼窝头', '大客货Ⅳ型', 5, 20),
+(17, '00010002', '亚运城', '00010001', '鱼窝头', '特客货Ⅴ型', 5, 25),
+(18, '00010002', '亚运城', '00010001', '鱼窝头', '特货Ⅵ型', 5, 30),
+(19, '00010002', '亚运城', '00010001', '鱼窝头', '超货Ⅶ型', 5, 35),
+(20, '00010002', '亚运城', '00010003', '仑头', '小客货Ⅰ型', 8, 5),
+(21, '00010002', '亚运城', '00010003', '仑头', '小客货Ⅱ型', 8, 10),
+(22, '00010002', '亚运城', '00010003', '仑头', '中客货Ⅲ型', 8, 15),
+(23, '00010002', '亚运城', '00010003', '仑头', '大客货Ⅳ型', 8, 20),
+(24, '00010002', '亚运城', '00010003', '仑头', '特客货Ⅴ型', 8, 25),
+(25, '00010002', '亚运城', '00010003', '仑头', '特货Ⅵ型', 8, 30),
+(26, '00010002', '亚运城', '00010003', '仑头', '超货Ⅶ型', 8, 35),
+(27, '00010003', '仑头', '00010002', '亚运城', '小客货Ⅰ型', 8, 5),
+(28, '00010003', '仑头', '00010002', '亚运城', '小客货Ⅱ型', 8, 10),
+(29, '00010003', '仑头', '00010002', '亚运城', '中客货Ⅲ型', 8, 15),
+(30, '00010003', '仑头', '00010002', '亚运城', '大客货Ⅳ型', 8, 20),
+(31, '00010003', '仑头', '00010002', '亚运城', '特客货Ⅴ型', 8, 25),
+(32, '00010003', '仑头', '00010002', '亚运城', '特货Ⅵ型', 8, 30),
+(33, '00010003', '仑头', '00010002', '亚运城', '超货Ⅶ型', 8, 35);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `tollstation`
+--
+
+DROP TABLE IF EXISTS `tollstation`;
+CREATE TABLE IF NOT EXISTS `tollstation` (
+  `ID` int(11) NOT NULL auto_increment COMMENT '序号',
+  `TollstationID` varchar(32) default NULL COMMENT '收费站编号',
+  `TollstationName` varchar(32) default NULL COMMENT '收费站名称',
+  `EntranceLane` int(11) default NULL COMMENT '入口车道数',
+  `ExitLane` int(11) default NULL COMMENT '出口车道数',
+  `UpstreamID` varchar(32) default NULL COMMENT '上游收费站编号',
+  `UpstreamName` varchar(32) default NULL COMMENT '上游收费站名称',
+  `DownstreamID` varchar(32) default NULL COMMENT '下游收费站编号',
+  `DownstreamName` varchar(32) default NULL COMMENT '下游收费站名称',
+  PRIMARY KEY  (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
+
+--
+-- 转存表中的数据 `tollstation`
+--
+
+INSERT INTO `tollstation` (`ID`, `TollstationID`, `TollstationName`, `EntranceLane`, `ExitLane`, `UpstreamID`, `UpstreamName`, `DownstreamID`, `DownstreamName`) VALUES
+(8, '00010002', '亚运城', 3, 4, '00010001', '鱼窝头', '00010003', '仑头'),
+(17, '00010001', '鱼窝头', 3, 3, '', '', '00010002', '亚运城'),
+(18, '00010003', '仑头', 3, 3, '00010002', '亚运城', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `tollstationcharge`
+--
+
+DROP TABLE IF EXISTS `tollstationcharge`;
+CREATE TABLE IF NOT EXISTS `tollstationcharge` (
+  `ID` int(11) NOT NULL auto_increment COMMENT '序号',
+  `TollstationID` int(11) NOT NULL COMMENT '收费站编号',
+  `SettlementDate` datetime NOT NULL COMMENT '结算日期',
+  `ReconciliationTime` datetime NOT NULL COMMENT '对账时间',
+  `ReconciliationAmount` int(11) NOT NULL COMMENT '对账金额',
+  `LaneReconciliationRecord` int(11) NOT NULL COMMENT '车道对账记录数',
+  `TollRecordNumber` int(11) NOT NULL COMMENT '收费记录数',
+  `ReconciliationStaff` varchar(32) NOT NULL COMMENT '对账人员',
+  `IsPay` int(11) NOT NULL COMMENT '是否交款',
+  `PayTime` datetime NOT NULL COMMENT '交款时间',
+  `Cashier` int(11) NOT NULL COMMENT '收款员',
+  `IsCenterReconciliation` int(11) NOT NULL COMMENT '中心是否对账',
+  `CenterReconciliationNumber` int(11) NOT NULL COMMENT '中心对账编号',
+  PRIMARY KEY  (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `trafficdemand`
+--
+
+DROP TABLE IF EXISTS `trafficdemand`;
+CREATE TABLE IF NOT EXISTS `trafficdemand` (
+  `ID` int(11) NOT NULL auto_increment COMMENT '编号',
+  `CarNum` varchar(32) default NULL COMMENT '车牌',
+  `CarType` varchar(32) default NULL COMMENT '车型',
+  `ExpectArrEnTime` datetime default NULL COMMENT '预计到达入口时间',
+  `EntranceStation` varchar(32) default NULL COMMENT '入口站',
+  `EntranceLane` varchar(32) default NULL COMMENT '入口车道',
+  `SendCardTime` datetime default NULL COMMENT '发卡时间',
+  `ExitStation` varchar(32) default NULL COMMENT '出口站',
+  `ExitLane` varchar(32) default NULL COMMENT '出口车道',
+  `ExpectArrExitTime` datetime default NULL COMMENT '预计到达出口时间',
+  `CompleteState` char(3) default NULL COMMENT '完成状态',
+  PRIMARY KEY  (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
